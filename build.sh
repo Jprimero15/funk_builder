@@ -1,8 +1,8 @@
 #!/bin/bash
 MANIFEST="https://gitlab.com/OrangeFox/sync.git"
-OEM="oneplus"
-DEVICE="avicii"
-DT_LINK="https://github.com/OrangeFoxRecovery/device_oneplus_avicii.git"
+OEM="xiaomi"
+DEVICE="pine"
+DT_LINK="https://github.com/OrangeFoxRecovery/device_$OEM\_$DEVICE.git"
 DT_PATH=device/$OEM/$DEVICE
 EXTRA_CMD="git clone https://github.com/OrangeFoxRecovery/Avatar.git misc"
 
