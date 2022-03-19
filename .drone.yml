@@ -11,4 +11,5 @@ steps:
 - name: Start syncing && Compiling
   image: brock5555/recovery
   commands:
-  - bash build.sh
+  - neofetch
+  - nproc --all
