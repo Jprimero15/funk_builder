@@ -4,7 +4,7 @@ OEM="xiaomi"
 DEVICE="olive"
 DT_LINK="https://github.com/Jprimero15/recovery_device_xiaomi_olive.git"
 DT_PATH=device/$OEM/$DEVICE
-EXTRA_CMD=""
+#EXTRA_CMD=""
 
 echo " ===+++ Setting up Build Environment +++==="
 apt install openssh-server -y
@@ -18,7 +18,7 @@ cd ~/fox_11.0
 git clone $DT_LINK $DT_PATH
 
 echo " ===+++ Running the Extra Command... +++==="
-$EXTRA_CMD
+#$EXTRA_CMD
 
 echo " ====+++ Building OrangeFox... +++==="
 . build/envsetup.sh
