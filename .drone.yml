@@ -9,8 +9,6 @@ platform:
 
 steps:
 - name: Start syncing && Compiling
-  image: ghcr.io/sushrut1101/docker:arch
+  image: brock5555/recovery
   commands:
-  - neofetch
-  - nproc
-  - nproc --all
+  - bash build.sh
