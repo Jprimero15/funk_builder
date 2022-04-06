@@ -1,10 +1,10 @@
 #!/bin/bash
 MANIFEST="https://gitlab.com/OrangeFox/sync.git"
 OEM="xiaomi"
-DEVICE="pine"
-DT_LINK="https://github.com/OrangeFoxRecovery/device_xiaomi_pine.git"
+DEVICE="olive"
+DT_LINK="https://github.com/Jprimero15/recovery_device_xiaomi_olive.git"
 DT_PATH=device/$OEM/$DEVICE
-EXTRA_CMD="git clone https://github.com/OrangeFoxRecovery/Avatar.git misc"
+EXTRA_CMD=""
 
 echo " ===+++ Setting up Build Environment +++==="
 apt install openssh-server -y
@@ -13,8 +13,8 @@ apt install openssh-server -y
 
 echo " ===+++ Sync OrangeFox +++==="
 git clone $MANIFEST ~/FOX && cd ~/FOX
-./get_fox_10.sh ~/fox_10.0
-cd ~/fox_10.0
+./orangefox_sync.sh --branch 11.0 --path ~/fox_11.0
+cd ~/fox_11.0
 git clone $DT_LINK $DT_PATH
 
 echo " ===+++ Running the Extra Command... +++==="
@@ -25,7 +25,7 @@ echo " ====+++ Building OrangeFox... +++==="
 export ALLOW_MISSING_DEPENDENCIES=true
 export FOX_USE_TWRP_RECOVERY_IMAGE_BUILDER=1
 export LC_ALL="C"
-lunch omni_${DEVICE}-eng && mka recoveryimage
+lunch twrp_${DEVICE}-eng && mka recoveryimage
 
 # Upload zips & recovery.img
 #echo " ===+++ Uploading Recovery +++===
