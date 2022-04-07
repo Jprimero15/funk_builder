@@ -1,7 +1,7 @@
 #!/bin/bash
 MANIFEST="https://gitlab.com/OrangeFox/sync.git"
 OEM="xiaomi"
-DEVICE="olive"
+DEVICE="mi439"
 DT_LINK="https://github.com/Jprimero15/recovery_device_xiaomi_olive.git"
 DT_PATH=device/$OEM/$DEVICE
 #EXTRA_CMD=""
