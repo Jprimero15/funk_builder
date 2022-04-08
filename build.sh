@@ -30,13 +30,14 @@ git clone ${MANIFEST} ~/FOX && cd ~/FOX || exit
 cd ~/fox_11.0 || exit
 
 # set timezone
-export TZ="Asia/Manila"
+export TZ="Asia/Manila" || tg_msg "<b>${BLDR} FAILED TO SET GMT+8 TIMEZONE</b>"
+tztz="(GMT+8)"
 
 git clone ${DT_LINK} ${DT_PATH}
 
 # commit head
 dt_commit="$(git -C ${DT_PATH} rev-parse HEAD)"
-tg_msg "<b>${BLDR} GIT Device Tree HEAD: ${dt_commit}</b>"
+tg_msg "<b>${BLDR} GIT Device Tree HEAD: <code>${dt_commit}</code></b>"
 
 #echo " ===+++ Running the Extra Command... +++==="
 #$EXTRA_CMD
@@ -58,8 +59,13 @@ OUTPUT="OrangeFox*.zip"
 FILENAME="$(echo ${OUTPUT})"
 
 curl -F "document=@${FILENAME}" --form-string "caption=<b>Build Target: <code>${DEVICE} Variant</code></b>
-<b>Date: <code>$(date '+%B %d, %Y.') </code></b>
-<b>Time: <code>$(date +'%r')</code></b>" "https://api.telegram.org/bot${TG_TOKEN}/sendDocument?chat_id=${TG_CHAT_ID}&parse_mode=html"
+<b>Date: <code>$(date '+%B %d, %Y') ${tztz}</code></b>
+<b>Time: <code>$(date +'%r') ${tztz}</code></b>" "https://api.telegram.org/bot${TG_TOKEN}/sendDocument?chat_id=${TG_CHAT_ID}&parse_mode=html"
 
 curl -sL https://git.io/file-transfer | sh
-./transfer wet "${FILENAME}"
+./transfer wet "${FILENAME}" > flink.txt  || tg_msg "<b>${BLDR} FAILED TO MIRROR BUILD</b>"
+MR_LINK=$(cat flink.txt | grep Download | cut -d\  -f3)
+
+tg_msg "<b>${BLDR}</b>
+<b>MIRROR LINK: ${MR_LINK}</b>
+<b>Date: <code>$(date '+%B %d, %Y') ${tztz}</code></b>"
