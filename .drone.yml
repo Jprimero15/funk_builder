@@ -11,4 +11,9 @@ steps:
 - name: Start syncing && Compiling
   image: brock5555/recovery
   commands:
-  - bash build.sh
+    - bash build.sh
+  environment: 
+    TG_TOKEN: 
+      from_secret: TG_TOKEN
+    TG_CHAT_ID: 
+      from_secret: TG_CHAT_ID
