@@ -7,7 +7,7 @@ DT_LINK="https://github.com/Jprimero15/recovery_device_xiaomi_olive.git"
 DT_PATH="device/${OEM}/${DEVICE}"
 RSOURCE="twrp"
 IMGTARGET="recoveryimage"
-CUSTOM_REC="Orangefox"
+CUSTOM_REC="OrangeFox"
 OUTPUT="${CUSTOM_REC}*.zip"
 BLDR="🦊 CI-Builder:"
 
@@ -36,7 +36,7 @@ cd ~/fox_11.0 || exit
 export TZ="Asia/Manila" || tg_msg "<b>${BLDR} FAILED TO SET GMT+8 TIMEZONE</b>"
 tztz="(GMT+8)"
 
-git clone ${DT_LINK} ${DT_PATH}
+git clone ${DT_LINK} -b fox_11.0 ${DT_PATH}
 
 # commit head
 dt_commit="$(git -C ${DT_PATH} rev-parse HEAD)"
