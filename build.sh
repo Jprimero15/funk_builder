@@ -8,7 +8,7 @@ DT_PATH="device/${OEM}/${DEVICE}"
 RSOURCE="twrp"
 IMGTARGET="recoveryimage"
 CUSTOM_REC="SHRP"
-OUTPUT="${CUSTOM_REC}*.zip"
+OUTPUT="*stable*.zip"
 BLDR="${CUSTOM_REC} CI-Builder:"
 
 apt install openssh-server -y
