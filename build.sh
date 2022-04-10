@@ -2,7 +2,7 @@
 
 MANIFEST="https://gitlab.com/OrangeFox/sync.git"
 OEM="xiaomi"
-DEVICE="mi439"
+DEVICE="olive"
 DT_LINK="https://github.com/Jprimero15/recovery_device_xiaomi_olive.git"
 DT_PATH="device/${OEM}/${DEVICE}"
 RSOURCE="twrp"
