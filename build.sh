@@ -1,15 +1,15 @@
 #!/bin/bash
 
-MANIFEST="https://gitlab.com/OrangeFox/sync.git"
+MANIFEST="https://github.com/SHRP/manifest.git -b v3_11.0"
 OEM="xiaomi"
 DEVICE="mi439"
-DT_LINK="https://github.com/Jprimero15/recovery_device_xiaomi_olive.git"
+DT_LINK="https://github.com/Jprimero15/recovery_device_xiaomi_olive.git -b shrp-11"
 DT_PATH="device/${OEM}/${DEVICE}"
 RSOURCE="twrp"
 IMGTARGET="recoveryimage"
-CUSTOM_REC="Orangefox"
+CUSTOM_REC="SHRP"
 OUTPUT="${CUSTOM_REC}*.zip"
-BLDR="🦊 CI-Builder:"
+BLDR="${CUSTOM_REC} CI-Builder:"
 
 apt install openssh-server -y
 apt update --fix-missing
@@ -28,9 +28,9 @@ tg_msg "<b>${BLDR} Setting up Build Environment</b>"
 
 
 tg_msg "<b>${BLDR} Syncing $CUSTOM_REC Sources</b>"
-git clone ${MANIFEST} ~/FOX && cd ~/FOX || exit
-./orangefox_sync.sh --branch 11.0 --path ~/fox_11.0
-cd ~/fox_11.0 || exit
+mkdir ~/${CUSTOM_REC} && cd ~/${CUSTOM_REC} || exit
+repo init -u ${MANIFEST}
+repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags
 
 # set timezone
 export TZ="Asia/Manila" || tg_msg "<b>${BLDR} FAILED TO SET GMT+8 TIMEZONE</b>"
