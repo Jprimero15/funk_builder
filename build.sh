@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MANIFEST="https://github.com/minimal-manifest-twrp/platform_manifest_twrp_omni -b twrp-10.0-deprecated"
+MANIFEST="https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp -b twrp-11"
 OEM="xiaomi"
 DEVICE="olive"
 DT_LINK="https://github.com/Jprimero15/recovery_device_xiaomi_olive.git"
@@ -35,7 +35,7 @@ repo sync
 export TZ="Asia/Manila" || tg_msg "<b>${BLDR} FAILED TO SET GMT+8 TIMEZONE</b>"
 tztz="(GMT+8)"
 
-git clone ${DT_LINK} -b fox_10.0 ${DT_PATH}
+git clone ${DT_LINK} -b fox_11.0 ${DT_PATH}
 
 # commit head
 dt_commit="$(git -C ${DT_PATH} rev-parse HEAD)"
