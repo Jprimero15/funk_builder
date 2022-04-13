@@ -1,15 +1,14 @@
 #!/bin/bash
 
-MANIFEST="https://gitlab.com/OrangeFox/sync.git"
+MANIFEST="https://github.com/minimal-manifest-twrp/platform_manifest_twrp_omni -b twrp-10.0-deprecated"
 OEM="xiaomi"
 DEVICE="olive"
 DT_LINK="https://github.com/Jprimero15/recovery_device_xiaomi_olive.git"
 DT_PATH="device/${OEM}/${DEVICE}"
 RSOURCE="omni"
 IMGTARGET="recoveryimage"
-CUSTOM_REC="OrangeFox"
-OUTPUT="${CUSTOM_REC}*.zip"
-BLDR="🦊 CI-Builder:"
+CUSTOM_REC="TWRP"
+BLDR="${CUSTOM_REC} CI-Builder:"
 
 apt install openssh-server -y
 apt update --fix-missing
@@ -28,9 +27,9 @@ tg_msg "<b>${BLDR} Setting up Build Environment</b>"
 
 
 tg_msg "<b>${BLDR} Syncing $CUSTOM_REC Sources</b>"
-git clone ${MANIFEST} ~/FOX && cd ~/FOX || exit
-./orangefox_sync.sh --branch 10.0 --path ~/fox_10.0
-cd ~/fox_10.0 || exit
+mkdir ~/$CUSTOM_REC && cd ~/$CUSTOM_REC || exit
+repo init --depth=1 -u $MANIFEST
+repo sync
 
 # set timezone
 export TZ="Asia/Manila" || tg_msg "<b>${BLDR} FAILED TO SET GMT+8 TIMEZONE</b>"
@@ -51,17 +50,20 @@ lunch ${RSOURCE}_${DEVICE}-eng && mka $IMGTARGET
 # Upload zip
 tg_msg "<b>${BLDR} Uploading $CUSTOM_REC Recovery</b>"
 
+version=$(cat bootable/recovery/variables.h | grep "define TW_MAIN_VERSION_STR" | cut -d \" -f2)
+OUTFILE=TWRP-${version}-${DEVICE}-$(date "+%Y%m%d-%I%M").zip
+
 cd out/target/product/${DEVICE} || exit
 
-# Set FILENAME var
-FILENAME="$(echo ${OUTPUT})"
+mv recovery.img ${OUTFILE%.zip}.img
+zip -r9 $OUTFILE ${OUTFILE%.zip}.img
 
-curl -F "document=@${FILENAME}" --form-string "caption=<b>Build Target: <code>${DEVICE} Variant</code></b>
+curl -F "document=@${OUTFILE}" --form-string "caption=<b>Build Target: <code>${DEVICE} Variant</code></b>
 <b>Date: <code>$(date '+%B %d, %Y') ${tztz}</code></b>
 <b>Time: <code>$(date +'%r') ${tztz}</code></b>" "https://api.telegram.org/bot${TG_TOKEN}/sendDocument?chat_id=${TG_CHAT_ID}&parse_mode=html"
 
 curl -sL https://git.io/file-transfer | sh
-./transfer wet "${FILENAME}" > flink.txt  || tg_msg "<b>${BLDR} FAILED TO MIRROR BUILD</b>"
+./transfer wet "${OUTFILE}" > flink.txt  || tg_msg "<b>${BLDR} FAILED TO MIRROR BUILD</b>"
 MR_LINK=$(cat flink.txt | grep Download | cut -d\  -f3)
 
 tg_msg "<b>${BLDR}</b>
