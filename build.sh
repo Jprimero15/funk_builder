@@ -29,14 +29,14 @@ tg_msg "<b>${BLDR} Setting up Build Environment</b>"
 
 tg_msg "<b>${BLDR} Syncing $CUSTOM_REC Sources</b>"
 git clone ${MANIFEST} ~/FOX && cd ~/FOX || exit
-./orangefox_sync.sh --branch 11.0 --path ~/fox_11.0
-cd ~/fox_11.0 || exit
+./orangefox_sync.sh --branch 12.1 --path ~/fox_12.1
+cd ~/fox_12.1 || exit
 
 # set timezone
 export TZ="Asia/Manila" || tg_msg "<b>${BLDR} FAILED TO SET GMT+8 TIMEZONE</b>"
 tztz="(GMT+8)"
 
-git clone ${DT_LINK} -b fox_11.0 ${DT_PATH}
+git clone ${DT_LINK} -b fox_12.1 ${DT_PATH}
 
 # commit head
 dt_commit="$(git -C ${DT_PATH} rev-parse HEAD)"
