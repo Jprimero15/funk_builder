@@ -27,10 +27,13 @@ function tg_msg() {
 tg_msg "<b>${BLDR} Setting up Build Environment</b>"
 
 
-tg_msg "<b>${BLDR} Syncing $CUSTOM_REC Sources</b>"
-git clone ${MANIFEST} ~/FOX && cd ~/FOX || exit
+tg_msg "<b>${BLDR} Syncing ${CUSTOM_REC} Sources</b>"
+git clone ${MANIFEST} ~/${CUSTOM_REC}_sync && cd ~/${CUSTOM_REC}_sync || exit
 ./orangefox_sync.sh --branch 11.0 --path ~/fox_11.0
 cd ~/fox_11.0 || exit
+
+# needed files
+git clone https://github.com/LOLZKERNEL/mzic -b master ~/mzic || exit
 
 # set timezone
 export TZ="Asia/Manila" || tg_msg "<b>${BLDR} FAILED TO SET GMT+8 TIMEZONE</b>"
@@ -42,14 +45,14 @@ git clone ${DT_LINK} -b fox_11.0 ${DT_PATH}
 dt_commit="$(git -C ${DT_PATH} rev-parse HEAD)"
 tg_msg "<b>${BLDR} GIT Device Tree HEAD: <code>${dt_commit}</code></b>"
 
-tg_msg "<b>${BLDR} Building $CUSTOM_REC Recovery</b>"
+tg_msg "<b>${BLDR} Building ${CUSTOM_REC} Recovery</b>"
 . build/envsetup.sh
 export ALLOW_MISSING_DEPENDENCIES=true
 export LC_ALL="C"
-lunch ${RSOURCE}_${DEVICE}-eng && mka $IMGTARGET
+lunch ${RSOURCE}_${DEVICE}-eng && mka ${IMGTARGET}
 
 # Upload zip
-tg_msg "<b>${BLDR} Uploading $CUSTOM_REC Recovery</b>"
+tg_msg "<b>${BLDR} Uploading ${CUSTOM_REC} Recovery</b>"
 
 cd out/target/product/${DEVICE} || exit
 
