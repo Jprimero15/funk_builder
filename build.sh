@@ -1,8 +1,8 @@
 #!/bin/bash
 
 MANIFEST="https://gitlab.com/OrangeFox/sync.git"
-OEM="xiaomi"
-DEVICE="olive"
+OEM="infinix"
+DEVICE="X6812"
 DT_LINK="https://github.com/Jprimero15/device_infinix_X6812.git"
 DT_PATH="device/${OEM}/${DEVICE}"
 RSOURCE="twrp"
