@@ -1,12 +1,12 @@
 #!/bin/bash
 
 MANIFEST="https://gitlab.com/OrangeFox/sync.git"
-OEM="infinix"
-DEVICE="X6812"
-DT_LINK="https://github.com/Jprimero15/device_infinix_X6812.git"
+OEM="xiaomi"
+DEVICE="olive"
+DT_LINK="https://github.com/Jprimero15/recovery_device_xiaomi_olive.git"
 DT_PATH="device/${OEM}/${DEVICE}"
 RSOURCE="twrp"
-IMGTARGET="bootimage"
+IMGTARGET="recoveryimage"
 CUSTOM_REC="OrangeFox"
 OUTPUT="${CUSTOM_REC}*.zip"
 BLDR="🦊 CI-Builder:"
@@ -39,7 +39,7 @@ git clone https://github.com/LOLZKERNEL/mzic -b master ~/mzic || exit
 export TZ="Asia/Manila" || tg_msg "<b>${BLDR} FAILED TO SET GMT+8 TIMEZONE</b>"
 tztz="(GMT+8)"
 
-git clone ${DT_LINK} -b master ${DT_PATH}
+git clone ${DT_LINK} -b fox_11.0-q ${DT_PATH}
 
 # commit head
 dt_commit="$(git -C ${DT_PATH} rev-parse HEAD)"
